@@ -1,5 +1,6 @@
 package local.tyler.todos.controllers;
 
+import local.tyler.todos.model.Todo;
 import local.tyler.todos.model.User;
 import local.tyler.todos.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,13 @@ public class UserController {
         responseHeaders.setLocation(userUri);
 
         return new ResponseEntity<>("id of new User: " + user.getUserid(), responseHeaders, HttpStatus.CREATED);
+    }
+
+    // http://localhost:8080/users/todo/11
+    @PostMapping(value = "/todo/{id}", produces = {"application/json"})
+    public ResponseEntity<?> addTodo(@RequestBody Todo todo, @PathVariable long id){
+        userService.addTodoToUser(id, todo);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
 }

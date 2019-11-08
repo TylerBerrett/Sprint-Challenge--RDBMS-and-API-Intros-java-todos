@@ -66,4 +66,16 @@ public class UserServiceImpl implements UserService {
 
         return userRepo.save(newUser);
     }
+
+    @Override
+    public Todo addTodoToUser(long userId, Todo todo) {
+        User getUser = getUserById(userId);
+        Todo newTodo = new Todo();
+
+        newTodo.setUser(getUser);
+        newTodo.setDescription(todo.getDescription());
+        newTodo.setDatestarted(todo.getDatestarted());
+
+        return todoRepo.save(newTodo);
+    }
 }

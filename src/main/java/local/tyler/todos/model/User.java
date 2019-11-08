@@ -75,6 +75,10 @@ public class User {
         this.primaryemail = primaryemail;
     }
 
+    public void addTodo(Todo todo) {
+        todos.add(todo);
+    }
+
     public List<Todo> getTodos() {
         return todos;
     }

@@ -15,7 +15,9 @@ public interface UserService {
 
     // @POST
     User addUser(User user);
-    User addTodoToUser(long userId, Todo todo);
+    Todo addTodoToUser(long userId, Todo todo);
+
+    //
 
 
 }
