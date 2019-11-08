@@ -59,4 +59,12 @@ public class UserController {
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
+    // http://localhost:8080/users/userid/11
+    @DeleteMapping(value = "/userid/{userid}")
+    public ResponseEntity<?> deleteUser(@PathVariable long userid){
+        userService.deleteUserById(userid);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }

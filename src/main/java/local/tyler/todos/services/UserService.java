@@ -17,7 +17,8 @@ public interface UserService {
     User addUser(User user);
     Todo addTodoToUser(long userId, Todo todo);
 
-    //
+    // @DELETE
+    void deleteUserById(long userId);
 
 
 }
