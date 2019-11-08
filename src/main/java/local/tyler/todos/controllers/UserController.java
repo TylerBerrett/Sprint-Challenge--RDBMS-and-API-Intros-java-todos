@@ -3,12 +3,13 @@ package local.tyler.todos.controllers;
 import local.tyler.todos.model.User;
 import local.tyler.todos.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -23,6 +24,31 @@ public class UserController {
     public ResponseEntity<?> getAllUsers() {
         List<User> userList = userService.getAll();
         return new ResponseEntity<>(userList, HttpStatus.OK);
+    }
+
+    // http://localhost:8080/users/user/11
+    @GetMapping(value = "/user/{id}", produces = {"application/json"})
+    public ResponseEntity<?> getUserById(@PathVariable long id){
+        User getUser = userService.getUserById(id);
+        return new ResponseEntity<>(getUser, HttpStatus.OK);
+    }
+
+    // http://localhost:8080/users/user
+    @PostMapping(value = "/user", produces = {"application/json"})
+    public ResponseEntity<?> addUser(@RequestBody User user){
+        user = userService.addUser(user);
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+
+        URI userUri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(user.getUserid())
+                .toUri();
+
+        responseHeaders.setLocation(userUri);
+
+        return new ResponseEntity<>("id of new User: " + user.getUserid(), responseHeaders, HttpStatus.CREATED);
     }
 
 }
