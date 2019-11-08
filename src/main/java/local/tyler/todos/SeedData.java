@@ -1,11 +1,11 @@
-/*
 package local.tyler.todos;
 
-import com.lambdaschool.todo.models.Role;
-import com.lambdaschool.todo.models.Todo;
-import com.lambdaschool.todo.models.User;
-import com.lambdaschool.todo.services.RoleService;
-import com.lambdaschool.todo.services.UserService;
+
+import local.tyler.todos.model.Role;
+import local.tyler.todos.model.Todo;
+import local.tyler.todos.model.User;
+import local.tyler.todos.services.RoleService;
+import local.tyler.todos.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -90,4 +90,3 @@ public class SeedData implements CommandLineRunner {
         userService.save(u5);
     }
 }
-*/

@@ -1,5 +1,7 @@
 package local.tyler.todos.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -19,11 +21,12 @@ public class Todo {
 
     @ManyToOne
     @JoinColumn(name = "userid", nullable = false)
+    @JsonIgnoreProperties("todos")
     private User user;
 
     public Todo(){}
 
-    public Todo(String description, Date datestarted, User user, boolean completed) {
+    public Todo(String description, Date datestarted, User user) {
         this.description = description;
         this.datestarted = datestarted;
         this.user = user;
