@@ -44,9 +44,10 @@ public class SeedData implements CommandLineRunner {
                 .add(new Todo("Finish java-orders-swagger",
                         new Date(),
                         u1));
+        Date test = new Date(2323223232L);
         u1.getTodos()
                 .add(new Todo("Feed the turtles",
-                        new Date(),
+                        test,
                         u1));
         u1.getTodos()
                 .add(new Todo("Complete the sprint challenge",

@@ -34,6 +34,14 @@ public class UserController {
         return new ResponseEntity<>(getUser, HttpStatus.OK);
     }
 
+    // Stretch
+    // http://localhost:8080/users/user/4/todos
+    @GetMapping(value = "/user/{id}/todos", produces = {"application/json"})
+    public ResponseEntity<?> getUserTodos(@PathVariable long id){
+        List<Todo> getTodos = userService.getUserTodos(id);
+        return new ResponseEntity<>(getTodos, HttpStatus.OK);
+    }
+
     // http://localhost:8080/users/user
     @PostMapping(value = "/user", produces = {"application/json"})
     public ResponseEntity<?> addUser(@RequestBody User user){

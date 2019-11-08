@@ -12,6 +12,8 @@ public interface UserService {
     // @GET
     List<User> getAll();
     User getUserById(long id);
+    // Stretch
+    List<Todo> getUserTodos(long userId);
 
     // @POST
     User addUser(User user);
@@ -19,6 +21,8 @@ public interface UserService {
 
     // @DELETE
     void deleteUserById(long userId);
+
+
 
 
 }

@@ -13,6 +13,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.swing.text.html.parser.Entity;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Transactional
@@ -44,6 +45,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(long id) {
         return userRepo.findById(id).orElseThrow(() -> new EntityNotFoundException(Long.toString(id)));
+    }
+
+    // Stretch
+    @Override
+    public List<Todo> getUserTodos(long userId) {
+        User getUser = userRepo.findById(userId).orElseThrow(() -> new EntityNotFoundException(Long.toString(userId)));
+        List<Todo> displayList = getUser.getTodos();
+        displayList.sort(Comparator.comparing(Todo::getDatestarted));
+        List<Todo> newList = new ArrayList<>();
+        for (Todo t : displayList){
+            if (!t.isCompleted()){
+                newList.add(t);
+            }
+        }
+        return newList;
     }
 
     @Override
