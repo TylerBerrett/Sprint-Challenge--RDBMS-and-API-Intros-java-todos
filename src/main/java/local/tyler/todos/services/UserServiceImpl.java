@@ -13,6 +13,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.swing.text.html.parser.Entity;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -53,12 +54,14 @@ public class UserServiceImpl implements UserService {
         User getUser = userRepo.findById(userId).orElseThrow(() -> new EntityNotFoundException(Long.toString(userId)));
         List<Todo> displayList = getUser.getTodos();
         displayList.sort(Comparator.comparing(Todo::getDatestarted));
+
         List<Todo> newList = new ArrayList<>();
         for (Todo t : displayList){
             if (!t.isCompleted()){
                 newList.add(t);
             }
         }
+        //Collections.reverse(newList); // This will reverse list. It wil display the newest todo first if reversed
         return newList;
     }
 

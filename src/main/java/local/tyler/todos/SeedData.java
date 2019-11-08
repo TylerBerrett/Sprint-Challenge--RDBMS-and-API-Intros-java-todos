@@ -1,6 +1,9 @@
 package local.tyler.todos;
 
 
+import com.github.javafaker.Faker;
+import com.github.javafaker.GameOfThrones;
+import com.github.javafaker.Pokemon;
 import local.tyler.todos.model.Role;
 import local.tyler.todos.model.Todo;
 import local.tyler.todos.model.User;
@@ -11,8 +14,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 
 @Transactional
 @Component
@@ -89,5 +91,36 @@ public class SeedData implements CommandLineRunner {
                 "password",
                 "misskitty@school.lambda");
         userService.save(u5);
+
+
+        Faker faker = new Faker(new Locale("en-US"));
+
+        List<Role> roles = Arrays.asList(r1, r2, r3);
+
+        List<String> pokemonList = new ArrayList<>();
+        for (int i = 0; i < 50; i++){
+            pokemonList.add(faker.pokemon().name());
+        }
+
+        for (int i = 0; i < 100; i++) {
+            GameOfThrones got = faker.gameOfThrones();
+            String userName = got.character();
+            String passWord = got.house();
+            String email = got.city()+ i + "@got.com";
+            User newUser = new User(userName, passWord, email);
+            for (int j = 0; j < 2; j++) {
+                String randomPokemon = pokemonList.get(new Random().nextInt(pokemonList.size()));
+                Todo newTodo = new Todo("Catch " + randomPokemon, new Date(), newUser);
+                newUser.getTodos().add(newTodo);
+            }
+            Role randomRole = roles.get(new Random().nextInt(roles.size()));
+            newUser.addRole(randomRole);
+            userService.save(newUser);
+        }
+
+
+
+
+
     }
 }
