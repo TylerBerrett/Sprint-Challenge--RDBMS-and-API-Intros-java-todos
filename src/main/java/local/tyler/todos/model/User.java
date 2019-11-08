@@ -32,6 +32,7 @@ public class User {
             name = "userroles",
             joinColumns = @JoinColumn(name = "userid"),
             inverseJoinColumns = @JoinColumn(name = "roleid"))
+    @JsonIgnoreProperties("users")
     private List<Role> roles = new ArrayList<>();
 
     public User(){}
